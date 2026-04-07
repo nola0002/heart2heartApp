@@ -20,7 +20,11 @@ fun CheckInScreen(
     hours: Int,
     minutes: Int,
     seconds: Int,
-    onChange: (h: Int, m: Int, s: Int) -> Unit
+    onChange: (h: Int, m: Int, s: Int) -> Unit,
+    navigateToConnectButtonClick: () -> Unit,
+    navigateToCheckInButtonClick: () -> Unit,
+    navigateToHomeButtonClick: () -> Unit,
+    navigateToContactsButtonClick: () -> Unit
 ){
     Column(
         modifier = Modifier
@@ -36,7 +40,6 @@ fun CheckInScreen(
 
         SelectContacts(contacts, onContactCheckedChange, boxWidth)
 
-
         SetTimer(
             boxWidth,
             hours = hours,
@@ -44,8 +47,12 @@ fun CheckInScreen(
             seconds = seconds,
             onChange = onChange
         )
-        NavigationBarBottom({
 
-        })
+        NavigationBarBottom(
+            navigateToConnectButtonClick = navigateToConnectButtonClick,
+            navigateToCheckInButtonClick = navigateToCheckInButtonClick,
+            navigateToHomeButtonClick = navigateToHomeButtonClick,
+            navigateToContactsButtonClick = navigateToContactsButtonClick
+        )
     }
 }

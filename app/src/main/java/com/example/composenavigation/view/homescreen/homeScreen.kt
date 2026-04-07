@@ -25,7 +25,12 @@ import com.example.composenavigation.R
 import com.example.composenavigation.view.NavigationBarBottom
 
 @Composable
-fun HomeScreen(navigateToContactsButtonClick: () -> Unit) {
+fun HomeScreen(
+    navigateToConnectButtonClick: () -> Unit,
+    navigateToCheckInButtonClick: () -> Unit,
+    navigateToHomeButtonClick: () -> Unit,
+    navigateToContactsButtonClick: () -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -196,7 +201,12 @@ fun HomeScreen(navigateToContactsButtonClick: () -> Unit) {
                 }
             }
 
-            NavigationBarBottom(navigateToContactsButtonClick)
+            NavigationBarBottom(
+                navigateToConnectButtonClick = navigateToConnectButtonClick,
+                navigateToCheckInButtonClick = navigateToCheckInButtonClick,
+                navigateToHomeButtonClick = navigateToHomeButtonClick,
+                navigateToContactsButtonClick = navigateToContactsButtonClick
+                )
         }
     }
 }
