@@ -26,7 +26,16 @@ import androidx.compose.ui.unit.dp
 import com.example.composenavigation.R
 
 @Composable
-fun NavigationBarBottom(navigateToContactsButtonClick: () -> Unit) {
+fun NavigationBarBottom(
+    navigateToConnectButtonClick: () -> Unit,
+    navigateToCheckInButtonClick: () -> Unit,
+    navigateToHomeButtonClick: () -> Unit,
+    navigateToContactsButtonClick: () -> Unit
+) {
+    var homeLogo = R.drawable.homelogonavpink
+    var checkInLogo = R.drawable.checkinlogonavgrey
+
+    R.drawable.checkinlogonavpink
 
     Column() {
         Box(
@@ -40,7 +49,7 @@ fun NavigationBarBottom(navigateToContactsButtonClick: () -> Unit) {
                     .align(Alignment.TopCenter)
                     .width(36.dp)
                     .height(6.dp)
-                    .offset(x = (+50).dp, y = (-1).dp )
+                    .offset(x = (+50).dp, y = (-1).dp)
                     .clip(RoundedCornerShape(50))
                     .background(Color(0xFFFF5AA5))
             )
@@ -65,9 +74,7 @@ fun NavigationBarBottom(navigateToContactsButtonClick: () -> Unit) {
                         containerColor = Color.Transparent,
                         contentColor = Color.Black
                     ),
-                    onClick = {
-
-                    }) {
+                    onClick = navigateToConnectButtonClick) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -95,14 +102,13 @@ fun NavigationBarBottom(navigateToContactsButtonClick: () -> Unit) {
                         containerColor = Color.Transparent,
                         contentColor = Color.Black
                     ),
-                    onClick = {
-
-                    }) {
+                    onClick = navigateToCheckInButtonClick
+                ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.checkinlogonavgrey),
+                            painter = painterResource(id = checkInLogo),
                             contentDescription = "check in logo for navigation",
                             modifier = Modifier.size(28.dp)
                         )
@@ -117,19 +123,17 @@ fun NavigationBarBottom(navigateToContactsButtonClick: () -> Unit) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(
+                    Button(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Transparent,
                         contentColor = Color.Black
                     ),
-                    onClick = {
-
-                    }) {
+                    onClick = navigateToHomeButtonClick) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.homelogonavpink),
+                            painter = painterResource(id = homeLogo),
                             contentDescription = "home logo for navigation",
                             modifier = Modifier.size(28.dp)
                         )

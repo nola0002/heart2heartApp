@@ -61,6 +61,8 @@ import com.example.composenavigation.model.Contact
 import com.example.composenavigation.ui.theme.ComposeNavigationTheme
 import com.example.composenavigation.view.NavigationBarBottom
 import com.example.composenavigation.view.checkinscreen.CheckInScreen
+import com.example.composenavigation.view.contactsscreen.ContactsScreen
+import com.example.composenavigation.view.homescreen.HomeScreen
 import com.example.composenavigation.viewmodel.Heart2HeartViewModel
 import kotlinx.coroutines.flow.filter
 
@@ -70,67 +72,67 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val Heart2HeartViewModel = viewModel< Heart2HeartViewModel>();
+            val Heart2HeartViewModel = viewModel<Heart2HeartViewModel>();
 
 
 
 
-            CheckInScreen(
-                contacts = Heart2HeartViewModel.contacts,
-                onContactCheckedChange = { contact, newValue ->
-                    Heart2HeartViewModel.contacts = Heart2HeartViewModel.contacts.map {
-                        if (it.name == contact.name) it.copy(isChecked = newValue) else it
-                    }
-                },
-                hours = Heart2HeartViewModel.hours,
-                minutes = Heart2HeartViewModel.minutes,
-                seconds = Heart2HeartViewModel.seconds,
-                onChange = {h, m, s ->
-                    Heart2HeartViewModel.hours = h
-                    Heart2HeartViewModel.minutes = m
-                    Heart2HeartViewModel.seconds = s
-                })
 
 
 
-            /*
             val navController = rememberNavController()
             Column() {
                 NavHost(navController = navController, startDestination = "home-screen") {
                     composable("home-screen") {
-                        HomeScreen({
-                            navController.navigate("contacts-screen")
-                        })
+                        HomeScreen(
+                            navigateToConnectButtonClick = {},
+                            navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
+                            navigateToHomeButtonClick = {navController.navigate("home-screen")},
+                            navigateToContactsButtonClick = {navController.navigate("contacts-screen")}
+                            )
+                    }
+
+                    composable("checkin-screen") {
+
+                        CheckInScreen(
+                            contacts = Heart2HeartViewModel.contacts,
+                            onContactCheckedChange = { contact, newValue ->
+                                Heart2HeartViewModel.contacts = Heart2HeartViewModel.contacts.map {
+                                    if (it.name == contact.name) it.copy(isChecked = newValue) else it
+                                }
+                            },
+                            hours = Heart2HeartViewModel.hours,
+                            minutes = Heart2HeartViewModel.minutes,
+                            seconds = Heart2HeartViewModel.seconds,
+                            onChange = { h, m, s ->
+                                Heart2HeartViewModel.hours = h
+                                Heart2HeartViewModel.minutes = m
+                                Heart2HeartViewModel.seconds = s
+                            },
+                            navigateToConnectButtonClick = {},
+                            navigateToCheckInButtonClick = {navController.navigate("checkin-screen")},
+                            navigateToHomeButtonClick = {navController.navigate("home-screen")},
+                            navigateToContactsButtonClick = {navController.navigate("contacts-screen")}
+                            )
                     }
 
                     composable("contacts-screen") {
-                        ContactsScreen({
-                            navController.popBackStack()
-                        })
+                        ContactsScreen(
+                            navigateToConnectButtonClick = {},
+                            navigateToCheckInButtonClick = {navController.navigate("checkin-screen")},
+                            navigateToHomeButtonClick = {navController.navigate("home-screen")},
+                            navigateToContactsButtonClick = {navController.navigate("contacts-screen")}
+                        )
                     }
 
-
-             */
 
                 }
             }
         }
-
-
-
-
-
-
-
-@Composable
-fun ContactsScreen(onBackButtonClick: () -> Unit) {
-    Column {
-        Text(
-            text = "Contacts screen!",
-            fontSize = 32.sp
-        )
-        Button(onClick = onBackButtonClick) {
-            Text("Back")
-        }
     }
 }
+
+
+
+
+
