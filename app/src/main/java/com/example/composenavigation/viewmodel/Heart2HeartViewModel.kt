@@ -24,7 +24,6 @@ class Heart2HeartViewModel: ViewModel() {
     var seconds by mutableStateOf(0)
     var selectedScreen by mutableStateOf(Screen.Home)
 
-    // HER ER FUNKTIONEN DER MANGLER:
     fun addContact(name: String) {
         contacts = contacts + Contact(name = name)
     }

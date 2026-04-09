@@ -9,8 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-// Her er de vigtige imports, der passer til dit billede!
 import com.example.composenavigation.model.Contact
 import com.example.composenavigation.model.Screen
 import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
