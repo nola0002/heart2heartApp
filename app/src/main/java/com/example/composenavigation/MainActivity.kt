@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val Heart2HeartViewModel = viewModel<Heart2HeartViewModel>();
+            val heart2HeartViewModel = viewModel<Heart2HeartViewModel>();
 
 
             val navController = rememberNavController()
@@ -34,9 +34,9 @@ class MainActivity : ComponentActivity() {
                             navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
                             navigateToHomeButtonClick = { navController.navigate("home-screen") },
                             navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
-                            selectedScreen = Heart2HeartViewModel.selectedScreen,
+                            selectedScreen = heart2HeartViewModel.selectedScreen,
                             onScreenClick = { screen ->
-                                Heart2HeartViewModel.selectedScreen = screen
+                                heart2HeartViewModel.selectedScreen = screen
                                 when (screen) {
                                     Screen.Connect -> {}
                                     Screen.CheckIn -> navController.navigate("checkin-screen")
@@ -50,27 +50,27 @@ class MainActivity : ComponentActivity() {
                     composable("checkin-screen") {
 
                         CheckInScreen(
-                            contacts = Heart2HeartViewModel.contacts,
+                            contacts = heart2HeartViewModel.contacts,
                             onContactCheckedChange = { contact, newValue ->
-                                Heart2HeartViewModel.contacts = Heart2HeartViewModel.contacts.map {
+                                heart2HeartViewModel.contacts = heart2HeartViewModel.contacts.map {
                                     if (it.name == contact.name) it.copy(isChecked = newValue) else it
                                 }
                             },
-                            hours = Heart2HeartViewModel.hours,
-                            minutes = Heart2HeartViewModel.minutes,
-                            seconds = Heart2HeartViewModel.seconds,
+                            hours = heart2HeartViewModel.hours,
+                            minutes = heart2HeartViewModel.minutes,
+                            seconds = heart2HeartViewModel.seconds,
                             onChange = { h, m, s ->
-                                Heart2HeartViewModel.hours = h
-                                Heart2HeartViewModel.minutes = m
-                                Heart2HeartViewModel.seconds = s
+                                heart2HeartViewModel.hours = h
+                                heart2HeartViewModel.minutes = m
+                                heart2HeartViewModel.seconds = s
                             },
                             navigateToConnectButtonClick = {},
                             navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
                             navigateToHomeButtonClick = { navController.navigate("home-screen") },
                             navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
-                            selectedScreen = Heart2HeartViewModel.selectedScreen,
+                            selectedScreen = heart2HeartViewModel.selectedScreen,
                             onScreenClick = { screen ->
-                                Heart2HeartViewModel.selectedScreen = screen
+                                heart2HeartViewModel.selectedScreen = screen
                                 when (screen) {
                                     Screen.Connect -> {}
                                     Screen.CheckIn -> navController.navigate("checkin-screen")
@@ -83,13 +83,18 @@ class MainActivity : ComponentActivity() {
 
                     composable("contacts-screen") {
                         ContactsScreen(
+                            contacts = heart2HeartViewModel.contacts,
+                            onAddContact = { newName ->
+
+                                heart2HeartViewModel.addContact(newName)
+                            },
                             navigateToConnectButtonClick = {},
                             navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
                             navigateToHomeButtonClick = { navController.navigate("home-screen") },
                             navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
-                            selectedScreen = Heart2HeartViewModel.selectedScreen,
+                            selectedScreen = heart2HeartViewModel.selectedScreen,
                             onScreenClick = { screen ->
-                                Heart2HeartViewModel.selectedScreen = screen
+                                heart2HeartViewModel.selectedScreen = screen
                                 when (screen) {
                                     Screen.Connect -> {}
                                     Screen.CheckIn -> navController.navigate("checkin-screen")

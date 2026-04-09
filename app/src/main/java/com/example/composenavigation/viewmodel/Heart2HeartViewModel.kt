@@ -2,12 +2,8 @@ package com.example.composenavigation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import androidx.navigation.compose.rememberNavController
-import com.example.composenavigation.R
 import com.example.composenavigation.model.Contact
 import com.example.composenavigation.model.Screen
 
@@ -28,4 +24,8 @@ class Heart2HeartViewModel: ViewModel() {
     var seconds by mutableStateOf(0)
     var selectedScreen by mutableStateOf(Screen.Home)
 
+    // HER ER FUNKTIONEN DER MANGLER:
+    fun addContact(name: String) {
+        contacts = contacts + Contact(name = name)
+    }
 }
