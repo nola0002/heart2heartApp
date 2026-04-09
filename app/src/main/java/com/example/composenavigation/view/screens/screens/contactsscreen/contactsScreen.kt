@@ -1,18 +1,20 @@
-package com.example.composenavigation.view.contactsscreen
+package com.example.composenavigation.view.screens.screens.contactsscreen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
-import com.example.composenavigation.view.NavigationBarBottom
+import com.example.composenavigation.model.Screen
+import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
 
 @Composable
 fun ContactsScreen(
     navigateToConnectButtonClick: () -> Unit,
     navigateToCheckInButtonClick: () -> Unit,
     navigateToHomeButtonClick: () -> Unit,
-    navigateToContactsButtonClick: () -> Unit
+    navigateToContactsButtonClick: () -> Unit,
+    selectedScreen: Screen,
+    onScreenClick: (Screen) -> Unit
 ) {
     Column {
         Text(
@@ -20,6 +22,8 @@ fun ContactsScreen(
             fontSize = 32.sp
         )
         NavigationBarBottom(
+            selectedScreen = selectedScreen,
+            onScreenClick = onScreenClick,
             navigateToConnectButtonClick = navigateToConnectButtonClick,
             navigateToCheckInButtonClick = navigateToCheckInButtonClick,
             navigateToHomeButtonClick = navigateToHomeButtonClick,

@@ -1,70 +1,20 @@
 package com.example.composenavigation
 
-import android.R.attr.checked
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.room.util.copy
-import com.example.composenavigation.model.Contact
-import com.example.composenavigation.ui.theme.ComposeNavigationTheme
-import com.example.composenavigation.view.NavigationBarBottom
-import com.example.composenavigation.view.checkinscreen.CheckInScreen
-import com.example.composenavigation.view.contactsscreen.ContactsScreen
-import com.example.composenavigation.view.homescreen.HomeScreen
+import com.example.composenavigation.model.Screen
+import com.example.composenavigation.view.screens.screens.checkinscreen.CheckInScreen
+import com.example.composenavigation.view.screens.screens.contactsscreen.ContactsScreen
+import com.example.composenavigation.view.screens.screens.homescreen.HomeScreen
 import com.example.composenavigation.viewmodel.Heart2HeartViewModel
-import kotlinx.coroutines.flow.filter
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("MutableCollectionMutableState")
@@ -75,11 +25,6 @@ class MainActivity : ComponentActivity() {
             val Heart2HeartViewModel = viewModel<Heart2HeartViewModel>();
 
 
-
-
-
-
-
             val navController = rememberNavController()
             Column() {
                 NavHost(navController = navController, startDestination = "home-screen") {
@@ -87,9 +32,19 @@ class MainActivity : ComponentActivity() {
                         HomeScreen(
                             navigateToConnectButtonClick = {},
                             navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
-                            navigateToHomeButtonClick = {navController.navigate("home-screen")},
-                            navigateToContactsButtonClick = {navController.navigate("contacts-screen")}
-                            )
+                            navigateToHomeButtonClick = { navController.navigate("home-screen") },
+                            navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
+                            selectedScreen = Heart2HeartViewModel.selectedScreen,
+                            onScreenClick = { screen ->
+                                Heart2HeartViewModel.selectedScreen = screen
+                                when (screen) {
+                                    Screen.Connect -> {}
+                                    Screen.CheckIn -> navController.navigate("checkin-screen")
+                                    Screen.Home -> navController.navigate("home-screen")
+                                    Screen.Contacts -> navController.navigate("contacts-screen")
+                                }
+                            }
+                        )
                     }
 
                     composable("checkin-screen") {
@@ -110,22 +65,40 @@ class MainActivity : ComponentActivity() {
                                 Heart2HeartViewModel.seconds = s
                             },
                             navigateToConnectButtonClick = {},
-                            navigateToCheckInButtonClick = {navController.navigate("checkin-screen")},
-                            navigateToHomeButtonClick = {navController.navigate("home-screen")},
-                            navigateToContactsButtonClick = {navController.navigate("contacts-screen")}
-                            )
+                            navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
+                            navigateToHomeButtonClick = { navController.navigate("home-screen") },
+                            navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
+                            selectedScreen = Heart2HeartViewModel.selectedScreen,
+                            onScreenClick = { screen ->
+                                Heart2HeartViewModel.selectedScreen = screen
+                                when (screen) {
+                                    Screen.Connect -> {}
+                                    Screen.CheckIn -> navController.navigate("checkin-screen")
+                                    Screen.Home -> navController.navigate("home-screen")
+                                    Screen.Contacts -> navController.navigate("contacts-screen")
+                                }
+                            }
+                        )
                     }
 
                     composable("contacts-screen") {
                         ContactsScreen(
                             navigateToConnectButtonClick = {},
-                            navigateToCheckInButtonClick = {navController.navigate("checkin-screen")},
-                            navigateToHomeButtonClick = {navController.navigate("home-screen")},
-                            navigateToContactsButtonClick = {navController.navigate("contacts-screen")}
+                            navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
+                            navigateToHomeButtonClick = { navController.navigate("home-screen") },
+                            navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
+                            selectedScreen = Heart2HeartViewModel.selectedScreen,
+                            onScreenClick = { screen ->
+                                Heart2HeartViewModel.selectedScreen = screen
+                                when (screen) {
+                                    Screen.Connect -> {}
+                                    Screen.CheckIn -> navController.navigate("checkin-screen")
+                                    Screen.Home -> navController.navigate("home-screen")
+                                    Screen.Contacts -> navController.navigate("contacts-screen")
+                                }
+                            }
                         )
                     }
-
-
                 }
             }
         }
