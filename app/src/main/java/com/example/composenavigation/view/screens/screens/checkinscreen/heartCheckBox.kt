@@ -1,4 +1,4 @@
-package com.example.composenavigation.view.checkinscreen
+package com.example.composenavigation.view.screens.screens.checkinscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

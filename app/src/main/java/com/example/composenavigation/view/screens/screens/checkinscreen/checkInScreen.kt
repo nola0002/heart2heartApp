@@ -1,4 +1,4 @@
-package com.example.composenavigation.view.checkinscreen
+package com.example.composenavigation.view.screens.screens.checkinscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composenavigation.model.Contact
-import com.example.composenavigation.view.NavigationBarBottom
+import com.example.composenavigation.model.Screen
+import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
 
 @Composable
 fun CheckInScreen(
@@ -24,7 +25,9 @@ fun CheckInScreen(
     navigateToConnectButtonClick: () -> Unit,
     navigateToCheckInButtonClick: () -> Unit,
     navigateToHomeButtonClick: () -> Unit,
-    navigateToContactsButtonClick: () -> Unit
+    navigateToContactsButtonClick: () -> Unit,
+    selectedScreen: Screen,
+    onScreenClick: (Screen) -> Unit
 ){
     Column(
         modifier = Modifier
@@ -49,6 +52,8 @@ fun CheckInScreen(
         )
 
         NavigationBarBottom(
+            selectedScreen = selectedScreen,
+            onScreenClick = onScreenClick,
             navigateToConnectButtonClick = navigateToConnectButtonClick,
             navigateToCheckInButtonClick = navigateToCheckInButtonClick,
             navigateToHomeButtonClick = navigateToHomeButtonClick,
