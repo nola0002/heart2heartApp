@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val heart2HeartViewModel = viewModel<Heart2HeartViewModel>();
+            val heart2HeartViewModel = viewModel<Heart2HeartViewModel>()
 
 
             val navController = rememberNavController()
