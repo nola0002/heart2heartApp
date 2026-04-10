@@ -47,7 +47,6 @@ fun SetTimer(
         ) {
             Column() {
                 Row() {
-
                 }
 
                 TimerPicker(

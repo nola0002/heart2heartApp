@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 fun PinkButtonCheckInScreen(
     onClick: () -> Unit,
     text: String
-){
+) {
     Button(
         shape = RoundedCornerShape(50),
         colors = ButtonDefaults.buttonColors(
@@ -37,11 +37,12 @@ fun PinkButtonCheckInScreen(
             .width(250.dp)
             .fillMaxWidth(0.82f)
             .padding(),
-        onClick = onClick) {
+        onClick = onClick
+    ) {
         Text(
             text = text,
             fontSize = 22.sp,
             fontWeight = FontWeight.Normal
-            )
+        )
     }
 }

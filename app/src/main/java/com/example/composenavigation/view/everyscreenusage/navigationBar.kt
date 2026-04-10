@@ -58,7 +58,7 @@ fun NavigationBarBottom(
 
             // Connect
             NavBarElement(
-                navigateTo = { onScreenClick(Screen.Connect) },
+                navigateTo = {},
                 color = if (selectedScreen == Screen.Connect) pink else black,
                 picture = R.drawable.heartlogonavgrey,
                 text = "Connect"
@@ -88,8 +88,6 @@ fun NavigationBarBottom(
                 picture = if (selectedScreen == Screen.Contacts) R.drawable.userlogonavpink else R.drawable.userlogonavngrey,
                 text = "Contacts"
             )
-
-
         }
     }
 }

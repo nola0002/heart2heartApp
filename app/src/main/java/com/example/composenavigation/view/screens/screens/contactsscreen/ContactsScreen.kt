@@ -1,5 +1,6 @@
 package com.example.composenavigation.view.screens.screens.contactsscreen
 
+import android.R
 import android.R.attr.shape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,7 +28,9 @@ fun ContactsScreen(
     selectedScreen: Screen,
     onScreenClick: (Screen) -> Unit,
     newContactName: String,
-    onValueChange: (String) -> Unit,
+    onValueChangeName: (String) -> Unit,
+    newPhoneNumber: String,
+    onValueChangePhone: (String) -> Unit,
     onAddButtonClick: () -> Unit,
     onDeleteButtonClick: (Contact) -> Unit
 ) {
@@ -44,7 +49,7 @@ fun ContactsScreen(
         ) {
             OutlinedTextField(
                 value = newContactName,
-                onValueChange = onValueChange,
+                onValueChange = onValueChangeName,
                 label = { Text("Enter name") },
                 modifier = Modifier
                     .weight(1f)
@@ -58,11 +63,38 @@ fun ContactsScreen(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            PinkAddButtonContactsScreen(
-                onClick = onAddButtonClick,
-                text = "Add"
-            )
+
         }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                value = newPhoneNumber,
+                onValueChange = onValueChangePhone,
+                label = { Text("Enter phone number") },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = 10.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color(0xFFFF5AA5),
+                    focusedLabelColor = Color(0xFFFF5AA5),
+                    unfocusedBorderColor = Color(0xFFFF5AA5)
+                )
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+
+        }
+
+        PinkAddButtonContactsScreen(
+            onClick = onAddButtonClick,
+            text = "Add"
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -94,15 +126,26 @@ fun ContactsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
 
                     ) {
-                        Text(
-                            text = contact.name,
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(16.dp)
-                        )
+                        Column(
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = contact.name,
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(all = 6.dp)
+                            )
+                            Text(
+                                text = contact.phoneNumber,
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(all = 6.dp)
+                            )
+                        }
+
 
                         PinkDeleteButtonContactsScreen(
                             onClick = { onDeleteButtonClick(contact) },
-                            text = "Delete")
+                            text = "Delete"
+                        )
                     }
 
                 }

@@ -2,6 +2,8 @@ package com.example.composenavigation.view.screens.screens.checkinscreen
 
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,28 +26,29 @@ fun NumberWheel(
     selected: Int,
     onSelectedChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    visibleCount: Int = 3,          // fx 5 rækker synlige
+    visibleCount: Int = 3,      // SKAL være ulige: 3 eller 5
     itemHeight: Dp = 56.dp
 ) {
+    val centerOffset = visibleCount / 2
     val state = rememberLazyListState()
-
-
-    // Snap så den lander pænt på et tal
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = state)
 
-    // Start scrolleren ved "selected"
+    // Start: placer selected i MIDTEN
     LaunchedEffect(values, selected) {
-        val index = values.indexOf(selected).coerceAtLeast(0)
-        state.scrollToItem(index)
+        val idx = values.indexOf(selected).coerceAtLeast(0)
+        state.scrollToItem((idx - centerOffset).coerceAtLeast(0))
     }
 
-    // Lyt efter scroll-stop og opdatér selected
+    // Når scroll stopper: vælg MIDTER item
     LaunchedEffect(state) {
         snapshotFlow { state.isScrollInProgress }
             .filter { it == false }
             .collect {
-                val index = state.firstVisibleItemIndex
-                onSelectedChange(values[index])
+                val centerIndex =
+                    (state.firstVisibleItemIndex + centerOffset)
+                        .coerceIn(0, values.lastIndex)
+
+                onSelectedChange(values[centerIndex])
             }
     }
 
@@ -60,6 +63,9 @@ fun NumberWheel(
             flingBehavior = flingBehavior,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Padding så midten kan ramme et rigtigt tal
+            items(centerOffset) { Spacer(Modifier.height(itemHeight)) }
+
             items(values.size) { i ->
                 val v = values[i]
                 val isSelected = (v == selected)
@@ -71,6 +77,8 @@ fun NumberWheel(
                     modifier = Modifier.height(itemHeight)
                 )
             }
+
+            items(centerOffset) { Spacer(Modifier.height(itemHeight)) }
         }
     }
 }

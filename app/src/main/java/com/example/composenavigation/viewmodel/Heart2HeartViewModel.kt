@@ -2,7 +2,6 @@ package com.example.composenavigation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.composenavigation.model.Contact
@@ -12,11 +11,11 @@ class Heart2HeartViewModel: ViewModel() {
 
     var contacts by mutableStateOf(
         listOf(
-            Contact("Mom"),
-            Contact("Dad"),
-            Contact("Sibling"),
-            Contact("Partner"),
-            Contact("Bestie")
+            Contact("Mom", "56214309"),
+            Contact("Dad", "34241221"),
+            Contact("Sibling", "57329812"),
+            Contact("Partner", "44074140"),
+            Contact("Bestie", "22203032")
         )
     )
 
@@ -27,9 +26,10 @@ class Heart2HeartViewModel: ViewModel() {
 
     var newContactName by mutableStateOf("")
 
+    var newPhoneNumber by mutableStateOf("")
 
-    fun addContact(name: String) {
-        contacts = contacts + Contact(name = name)
+    fun addContact(name: String, phoneNumber: String) {
+        contacts = contacts + Contact(name = name, phoneNumber = phoneNumber)
     }
 
     fun deleteContact(contactToDelete: Contact) {
