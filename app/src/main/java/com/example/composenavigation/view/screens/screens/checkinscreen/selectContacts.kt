@@ -73,8 +73,6 @@ fun SelectContacts(
                         HeartCheckbox(checked = contact.isChecked, onCheckedChange = { newValue ->
                             onContactCheckedChange(contact, newValue)
                         })
-
-
                     }
                 }
             }

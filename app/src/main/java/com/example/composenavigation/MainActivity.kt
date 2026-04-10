@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composenavigation.model.Screen
+import com.example.composenavigation.view.screens.screens.checkinscreen.CheckInNextStep
 import com.example.composenavigation.view.screens.screens.checkinscreen.CheckInScreen
 import com.example.composenavigation.view.screens.screens.contactsscreen.ContactsScreen
 import com.example.composenavigation.view.screens.screens.homescreen.HomeScreen
@@ -39,12 +40,13 @@ class MainActivity : ComponentActivity() {
                                     Screen.Home -> navController.navigate("home-screen")
                                     Screen.Contacts -> navController.navigate("contacts-screen")
                                 }
-                            }
+                            },
+                            navigateToCheckInPage = { navController.navigate("checkin-screen")}
                         )
                     }
 
+                    // first check-in screen
                     composable("checkin-screen") {
-
                         CheckInScreen(
                             contacts = heart2HeartViewModel.contacts,
                             onContactCheckedChange = { contact, newValue ->
@@ -71,11 +73,21 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                             setCheckInButtonClick = {
-
-                            }
+                                navController.navigate("checkin_nextstep")
+                            },
+                            goBackArrowClick = {navController.popBackStack()}
                         )
                     }
 
+                    // second check-in screen
+                    composable("checkin_nextstep"){
+                        CheckInNextStep(
+                            navController,
+                            swipedToConfirm = {
+                                navController.navigate("home-screen")
+                            }
+                        )
+                    }
 
                     composable("contacts-screen") {
                         ContactsScreen(
@@ -91,12 +103,16 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                             newContactName = heart2HeartViewModel.newContactName,
-                            onValueChange = { heart2HeartViewModel.newContactName = it },
+                            onValueChangeName = { heart2HeartViewModel.newContactName = it },
+                            newPhoneNumber = heart2HeartViewModel.newPhoneNumber,
+                            onValueChangePhone = { heart2HeartViewModel.newPhoneNumber = it},
                             onAddButtonClick = {
                                 val name = heart2HeartViewModel.newContactName.trim()
+                                val phoneNumber = heart2HeartViewModel.newPhoneNumber.trim()
                                 if (name.isNotBlank()) {
-                                    heart2HeartViewModel.addContact(name)
+                                    heart2HeartViewModel.addContact(name, phoneNumber = phoneNumber)
                                     heart2HeartViewModel.newContactName = ""
+                                    heart2HeartViewModel.newPhoneNumber = ""
                                 }
                             },
                             onDeleteButtonClick = { contactToDelete ->

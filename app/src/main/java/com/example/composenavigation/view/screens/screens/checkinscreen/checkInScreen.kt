@@ -9,8 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +27,7 @@ import com.example.composenavigation.model.Screen
 import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CheckInScreen(
     contacts: List<Contact>,
@@ -31,11 +38,21 @@ fun CheckInScreen(
     onChange: (h: Int, m: Int, s: Int) -> Unit,
     selectedScreen: Screen,
     onScreenClick: (Screen) -> Unit,
-    setCheckInButtonClick: () -> Unit
+    setCheckInButtonClick: () -> Unit,
+    goBackArrowClick: () -> Unit
 ) {
     val boxWidth = 340
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("") },
+                navigationIcon = {
+                    IconButton(onClick = goBackArrowClick) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Tilbage")
+                    }
+                }
+            )},
         bottomBar = {
             NavigationBarBottom(
                 selectedScreen = selectedScreen,
@@ -52,6 +69,7 @@ fun CheckInScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (contacts.size > 0) {
+
                 item {
                     Text(
                         text = "Check-in",

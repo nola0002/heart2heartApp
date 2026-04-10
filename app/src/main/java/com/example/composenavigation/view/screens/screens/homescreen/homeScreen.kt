@@ -18,7 +18,8 @@ import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
 @Composable
 fun HomeScreen(
     selectedScreen: Screen,
-    onScreenClick: (Screen) -> Unit
+    onScreenClick: (Screen) -> Unit,
+    navigateToCheckInPage: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -60,8 +61,8 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             PinkButtonHomeScreen(
-                onClick = {},
-                text = "Activate Level 1"
+                onClick = navigateToCheckInPage,
+                text = "Create check-in"
             )
         }
 

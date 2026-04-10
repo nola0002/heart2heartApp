@@ -1,4 +1,4 @@
-package com.example.composenavigation
+package com.example.composenavigation.view.screens.screens.checkinscreen
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -33,15 +33,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
+import com.example.composenavigation.model.CheckinOption
 import kotlin.math.roundToInt
 
 // ─── DATA ───────────────────────────────────────────────
 
-data class CheckinOption(val title: String, val message: String)
 
 // De 5 hjerte-valg
 val options = listOf(
-    CheckinOption("Made it home",   "(Your name) made it home safely"),
+    CheckinOption("Made it home", "(Your name) made it home safely"),
     CheckinOption("On my way home", "(Your name) is on the way home"),
     CheckinOption("Location share", "sharing your location for 30 minutes"),
     CheckinOption("Custom",         "Custom message"),
@@ -74,7 +74,10 @@ class HeartShape : Shape {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Checkinnextstep(navController: NavController) {
+fun CheckInNextStep(
+    navController: NavController,
+    swipedToConfirm: () -> Unit
+) {
 
     var selectedIndex by remember { mutableStateOf(0) }
     var totalRotation by remember { mutableFloatStateOf(0f) }
@@ -87,7 +90,7 @@ fun Checkinnextstep(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Check-in next step") },
+                title = { Text("") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Tilbage")
@@ -105,7 +108,11 @@ fun Checkinnextstep(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            Text("Check-in")
+            Text(
+                text = "Check-in",
+                fontSize = 40.sp,
+                modifier = Modifier
+                    .padding(bottom = 40.dp))
 
             // Blomsten — roterer som én enhed
             Box(
@@ -146,7 +153,10 @@ fun Checkinnextstep(navController: NavController) {
                 Text(message, textAlign = TextAlign.Center, color = Color.Gray)
             }
 
-            SwipeToConfirmButton(onConfirmed = { navController.popBackStack() })
+            Spacer(Modifier.height(30.dp))
+
+
+            SwipeToConfirmButton(onConfirmed = swipedToConfirm)
         }
     }
 }

@@ -25,7 +25,7 @@ fun PinkAddButtonContactsScreen(
 ) {
     Row(
         modifier = Modifier
-            .padding(6.dp),
+            .padding(start = 16.dp, top = 6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Button(
