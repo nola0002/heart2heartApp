@@ -72,9 +72,5 @@ fun NumberWheel(
                 )
             }
         }
-
-        // Midter "highlight" (valgfrit) – kan være 2 linjer eller et transparent felt
-        // fx:
-        // Box(Modifier.fillMaxWidth().height(itemHeight).border(1.dp, Color.LightGray))
     }
 }

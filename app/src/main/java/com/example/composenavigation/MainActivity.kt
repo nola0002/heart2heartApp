@@ -30,10 +30,6 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = "home-screen") {
                     composable("home-screen") {
                         HomeScreen(
-                            navigateToConnectButtonClick = {},
-                            navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
-                            navigateToHomeButtonClick = { navController.navigate("home-screen") },
-                            navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
                             selectedScreen = heart2HeartViewModel.selectedScreen,
                             onScreenClick = { screen ->
                                 heart2HeartViewModel.selectedScreen = screen
@@ -64,10 +60,6 @@ class MainActivity : ComponentActivity() {
                                 heart2HeartViewModel.minutes = m
                                 heart2HeartViewModel.seconds = s
                             },
-                            navigateToConnectButtonClick = {},
-                            navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
-                            navigateToHomeButtonClick = { navController.navigate("home-screen") },
-                            navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
                             selectedScreen = heart2HeartViewModel.selectedScreen,
                             onScreenClick = { screen ->
                                 heart2HeartViewModel.selectedScreen = screen
@@ -77,21 +69,17 @@ class MainActivity : ComponentActivity() {
                                     Screen.Home -> navController.navigate("home-screen")
                                     Screen.Contacts -> navController.navigate("contacts-screen")
                                 }
+                            },
+                            setCheckInButtonClick = {
+
                             }
                         )
                     }
 
+
                     composable("contacts-screen") {
                         ContactsScreen(
                             contacts = heart2HeartViewModel.contacts,
-                            onAddContact = { newName ->
-
-                                heart2HeartViewModel.addContact(newName)
-                            },
-                            navigateToConnectButtonClick = {},
-                            navigateToCheckInButtonClick = { navController.navigate("checkin-screen") },
-                            navigateToHomeButtonClick = { navController.navigate("home-screen") },
-                            navigateToContactsButtonClick = { navController.navigate("contacts-screen") },
                             selectedScreen = heart2HeartViewModel.selectedScreen,
                             onScreenClick = { screen ->
                                 heart2HeartViewModel.selectedScreen = screen
@@ -101,6 +89,18 @@ class MainActivity : ComponentActivity() {
                                     Screen.Home -> navController.navigate("home-screen")
                                     Screen.Contacts -> navController.navigate("contacts-screen")
                                 }
+                            },
+                            newContactName = heart2HeartViewModel.newContactName,
+                            onValueChange = { heart2HeartViewModel.newContactName = it },
+                            onAddButtonClick = {
+                                val name = heart2HeartViewModel.newContactName.trim()
+                                if (name.isNotBlank()) {
+                                    heart2HeartViewModel.addContact(name)
+                                    heart2HeartViewModel.newContactName = ""
+                                }
+                            },
+                            onDeleteButtonClick = { contactToDelete ->
+                                heart2HeartViewModel.deleteContact(contactToDelete = contactToDelete)
                             }
                         )
                     }

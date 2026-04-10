@@ -30,7 +30,11 @@ fun SetTimer(
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Set a timer", fontSize = 26.sp, modifier = Modifier.padding(bottom = 16.dp))
+        Text(
+            text = "Set a timer",
+            fontSize = 26.sp,
+            modifier = Modifier.padding(bottom = 16.dp, top = 50.dp)
+        )
 
         val shape = RoundedCornerShape(12.dp)
         Box(

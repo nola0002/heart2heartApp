@@ -19,7 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PinkButton(
+fun PinkButtonHomeScreen(
     onClick: () -> Unit,
     text: String
 ){

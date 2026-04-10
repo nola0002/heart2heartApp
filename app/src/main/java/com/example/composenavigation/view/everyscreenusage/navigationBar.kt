@@ -29,11 +29,7 @@ import com.example.composenavigation.model.Screen
 @Composable
 fun NavigationBarBottom(
     selectedScreen: Screen,
-    onScreenClick: (Screen) -> Unit,
-    navigateToConnectButtonClick: () -> Unit,
-    navigateToCheckInButtonClick: () -> Unit,
-    navigateToHomeButtonClick: () -> Unit,
-    navigateToContactsButtonClick: () -> Unit
+    onScreenClick: (Screen) -> Unit
 ) {
     val pink: Color = Color(0xFFFF5AA5)
     val black: Color = Color.Black
@@ -45,15 +41,13 @@ fun NavigationBarBottom(
     val checkInLogoPink = R.drawable.checkinlogonavpink
 
 
-
-
-    val checkInOffset: Int = -48
+    val checkInOffset: Int = -49
     val homeOffset: Int = +51
-
+    val contactsOffset: Int = +152
 
 
     Column() {
-        NavBarDividerLine(offset = if (selectedScreen == Screen.Home) homeOffset else checkInOffset)
+        NavBarDividerLine(offset = if (selectedScreen == Screen.Home) homeOffset else if (selectedScreen == Screen.CheckIn) checkInOffset else contactsOffset)
 
         Row(
             modifier = Modifier
@@ -91,7 +85,7 @@ fun NavigationBarBottom(
             NavBarElement(
                 navigateTo = { onScreenClick(Screen.Contacts) },
                 color = if (selectedScreen == Screen.Contacts) pink else black,
-                picture = if (selectedScreen == Screen.Contacts) R.drawable.userlogonavngrey else R.drawable.userlogonavngrey,
+                picture = if (selectedScreen == Screen.Contacts) R.drawable.userlogonavpink else R.drawable.userlogonavngrey,
                 text = "Contacts"
             )
 

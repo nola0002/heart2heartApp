@@ -29,14 +29,17 @@ fun SelectContacts(
     contacts: List<Contact>,
     onContactCheckedChange: (Contact, Boolean) -> Unit,
     boxWidth: Int
-){
+) {
     Column(
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-
-        Text(text = "Select contacts", fontSize = 26.sp, modifier = Modifier.padding(bottom = 16.dp))
+        Text(
+            text = "Select contacts",
+            fontSize = 26.sp,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
 
         val shape = RoundedCornerShape(12.dp)
         val boxHeight = contacts.size * 60
@@ -48,7 +51,7 @@ fun SelectContacts(
                 .clip(shape)
                 .background(Color.White)
                 .border(1.dp, Color(0xFFFF5AA5), shape)
-        ){
+        ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -56,7 +59,7 @@ fun SelectContacts(
             ) {
                 items(
                     items = contacts,
-                    key = {it.name}
+                    key = { it.name }
                 ) { contact ->
                     Row(
                         modifier = Modifier
@@ -64,14 +67,19 @@ fun SelectContacts(
                             .padding(start = 10.dp, top = 12.dp, end = 14.dp, bottom = 10.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
+
                         Text(fontSize = 28.sp, text = contact.name)
 
                         HeartCheckbox(checked = contact.isChecked, onCheckedChange = { newValue ->
                             onContactCheckedChange(contact, newValue)
                         })
+
+
                     }
                 }
             }
         }
+
+
     }
 }
