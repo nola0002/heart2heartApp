@@ -17,17 +17,12 @@ import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
 
 @Composable
 fun HomeScreen(
-    navigateToConnectButtonClick: () -> Unit,
-    navigateToCheckInButtonClick: () -> Unit,
-    navigateToHomeButtonClick: () -> Unit,
-    navigateToContactsButtonClick: () -> Unit,
     selectedScreen: Screen,
     onScreenClick: (Screen) -> Unit
 ) {
-
     Column(
         modifier = Modifier
-            .padding(top = 30.dp, bottom = 6.dp)
+            .padding(top = 30.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
@@ -64,7 +59,7 @@ fun HomeScreen(
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PinkButton(
+            PinkButtonHomeScreen(
                 onClick = {},
                 text = "Activate Level 1"
             )
@@ -73,12 +68,12 @@ fun HomeScreen(
         Column(
             modifier = Modifier.padding(top = 14.dp, bottom = 40.dp)
         ) {
-            PinkButton(
+            PinkButtonHomeScreen(
                 onClick = {},
                 text = "Activate Level 1"
             )
 
-            PinkButton(
+            PinkButtonHomeScreen(
                 onClick = {},
                 text = "Activate Level 2"
             )
@@ -87,11 +82,7 @@ fun HomeScreen(
 
         NavigationBarBottom(
             selectedScreen = selectedScreen,
-            onScreenClick = onScreenClick,
-            navigateToConnectButtonClick = navigateToConnectButtonClick,
-            navigateToCheckInButtonClick = navigateToCheckInButtonClick,
-            navigateToHomeButtonClick = navigateToHomeButtonClick,
-            navigateToContactsButtonClick = navigateToContactsButtonClick
+            onScreenClick = onScreenClick
         )
     }
 }

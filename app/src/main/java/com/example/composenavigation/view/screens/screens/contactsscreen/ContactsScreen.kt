@@ -1,12 +1,18 @@
 package com.example.composenavigation.view.screens.screens.contactsscreen
 
+import android.R.attr.shape
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composenavigation.model.Contact
@@ -16,21 +22,18 @@ import com.example.composenavigation.view.everyscreenusage.NavigationBarBottom
 @Composable
 fun ContactsScreen(
     contacts: List<Contact>,
-    onAddContact: (String) -> Unit,
-    navigateToConnectButtonClick: () -> Unit,
-    navigateToCheckInButtonClick: () -> Unit,
-    navigateToHomeButtonClick: () -> Unit,
-    navigateToContactsButtonClick: () -> Unit,
     selectedScreen: Screen,
-    onScreenClick: (Screen) -> Unit
+    onScreenClick: (Screen) -> Unit,
+    newContactName: String,
+    onValueChange: (String) -> Unit,
+    onAddButtonClick: () -> Unit,
+    onDeleteButtonClick: (Contact) -> Unit
 ) {
-    var newContactName by remember { mutableStateOf("") }
-
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
-            text = "Kontakter",
-            fontSize = 32.sp,
-            modifier = Modifier.padding(16.dp)
+            text = "Contacts",
+            fontSize = 50.sp,
+            modifier = Modifier.padding(16.dp, top = 40.dp, bottom = 30.dp)
         )
 
         Row(
@@ -41,26 +44,29 @@ fun ContactsScreen(
         ) {
             OutlinedTextField(
                 value = newContactName,
-                onValueChange = { newContactName = it },
-                label = { Text("Indtast navn") },
-                modifier = Modifier.weight(1f)
+                onValueChange = onValueChange,
+                label = { Text("Enter name") },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = 10.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color(0xFFFF5AA5),
+                    focusedLabelColor = Color(0xFFFF5AA5),
+                    unfocusedBorderColor = Color(0xFFFF5AA5)
+                )
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Button(
-                onClick = {
-                    if (newContactName.isNotBlank()) {
-                        onAddContact(newContactName)
-                        newContactName = ""
-                    }
-                }
-            ) {
-                Text("Tilføj")
-            }
+            PinkAddButtonContactsScreen(
+                onClick = onAddButtonClick,
+                text = "Add"
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        val shape = RoundedCornerShape(16.dp)
 
         LazyColumn(
             modifier = Modifier
@@ -72,25 +78,40 @@ fun ContactsScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = 4.dp)
+                        .background(Color.White)
+                        .border(1.dp, Color(0xFFFF5AA5), shape),
+                    shape = shape,
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color.White
+                    ),
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
-                    Text(
-                        text = contact.name,
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(16.dp)
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+
+                    ) {
+                        Text(
+                            text = contact.name,
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(16.dp)
+                        )
+
+                        PinkDeleteButtonContactsScreen(
+                            onClick = { onDeleteButtonClick(contact) },
+                            text = "Delete")
+                    }
+
                 }
             }
         }
 
         NavigationBarBottom(
             selectedScreen = selectedScreen,
-            onScreenClick = onScreenClick,
-            navigateToConnectButtonClick = navigateToConnectButtonClick,
-            navigateToCheckInButtonClick = navigateToCheckInButtonClick,
-            navigateToHomeButtonClick = navigateToHomeButtonClick,
-            navigateToContactsButtonClick = navigateToContactsButtonClick
+            onScreenClick = onScreenClick
         )
     }
 }

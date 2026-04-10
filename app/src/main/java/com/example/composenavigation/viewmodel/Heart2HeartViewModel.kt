@@ -2,6 +2,7 @@ package com.example.composenavigation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.composenavigation.model.Contact
@@ -24,7 +25,16 @@ class Heart2HeartViewModel: ViewModel() {
     var seconds by mutableStateOf(0)
     var selectedScreen by mutableStateOf(Screen.Home)
 
+    var newContactName by mutableStateOf("")
+
+
     fun addContact(name: String) {
         contacts = contacts + Contact(name = name)
     }
+
+    fun deleteContact(contactToDelete: Contact) {
+        contacts = contacts - contactToDelete
+    }
+
+
 }
